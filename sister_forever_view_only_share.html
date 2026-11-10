@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sister Forever — Little gifts, lots of love</title>
+<style>
+:root{--pink:#d94b89;--pink2:#fcecf3;--ink:#30202a;--muted:#95858e;--line:#ead9e1;--paper:#fffafd;--lav:#f7e8fb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.top{padding:24px 20px;background:linear-gradient(110deg,#fde8f1,#f5e6fb);color:#984568;font-weight:700}
+.wrap{max-width:760px;margin:auto;padding:24px 20px 60px}
+.hero{margin:70px auto 54px;padding:65px 34px;text-align:center;border:1px solid #f0d7e5;border-radius:34px;background:linear-gradient(135deg,#fbe5f0,#f4e6fb);box-shadow:0 12px 35px #e9cbd833}
+.emoji{font-size:58px;margin-bottom:28px}.serif{font-family:Georgia,'Times New Roman',serif}
+h1{font-size:clamp(42px,8vw,64px);line-height:1.12;margin:0 0 22px;letter-spacing:-1.5px}
+.hero p,.muted{color:var(--muted);font-size:19px;line-height:1.5}
+.primary,.soft,.smallbtn{border:0;border-radius:22px;padding:18px 28px;font-weight:700;font-size:19px}
+.primary{background:var(--pink);color:white;box-shadow:0 10px 22px #d94b8929}
+.soft,.smallbtn{background:#fff0f6;color:#9f4169;border:1px solid #f0d2e0}
+.primary:hover,.soft:hover,.smallbtn:hover{filter:brightness(.98);transform:translateY(-1px)}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 20px}
+.sectionhead h2{font:38px Georgia,serif;margin:0}.pill{border-radius:30px;background:#fff0f6;padding:12px 18px;color:#a4446d;font-weight:700}
+.giftcard,.panel{background:white;border:1px solid var(--line);border-radius:30px;padding:30px;margin:20px 0;box-shadow:0 2px 8px #5d24300a}
+.tag{display:block;background:#fff0f6;border-radius:30px;padding:13px 20px;color:#9e4268;font-weight:700;margin-bottom:20px}
+.giftcard h3{font:36px Georgia,serif;margin:0 0 12px}.giftcard p{color:var(--muted);font-size:18px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.smallbtn{padding:14px 22px;font-size:17px}
+.back{display:inline-block;color:#9e4268;font-size:20px;font-weight:700;text-decoration:none;margin-bottom:22px}
+.panel{padding:30px 26px}.panel h1{font-size:clamp(42px,7vw,60px);margin:26px 0}
+label{display:block;font-size:18px;font-weight:700;margin:24px 0 10px}
+input,textarea,select{width:100%;border:2px solid var(--line);border-radius:24px;padding:20px 22px;color:#352832;background:#fff;font-size:19px;outline:none}
+textarea{min-height:145px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:#d979a4}
+.hint{font-size:15px;color:var(--muted);line-height:1.45;margin:12px 4px}
+hr{border:0;border-top:1px solid var(--line);margin:36px 0}
+.photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.photos img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px}
+.hidden{display:none!important}.preview{min-height:80vh;text-align:center;padding:45px 24px;background:linear-gradient(150deg,#fff0f6,#f7eaff);border-radius:30px}
+.preview .letter{white-space:pre-wrap;line-height:1.8;font-size:19px;color:#765968;max-width:620px;margin:28px auto}
+.preview h1{font-size:clamp(42px,9vw,68px)}.preview img{max-width:100%;width:240px;border-radius:22px;margin:8px}
+.heart{font-size:52px;animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.12)}}
+.footer{text-align:center;color:#ad9aa4;padding:30px 0 10px;font-size:14px}
+@media(max-width:520px){.hero{margin:30px auto 42px;padding:48px 22px}.wrap{padding:20px 16px 50px}.giftcard,.panel{padding:24px 20px}.sectionhead h2{font-size:32px}.actions>*{flex:1}.smallbtn{padding:13px 12px;font-size:16px}}
+</style>
+</head>
+<body>
+<div class="top" id="topbar">♡</div>
+<main class="wrap">
+<section id="home">
+ <div class="hero">
+  <div class="emoji">💗 🌷 💌</div>
+  <h1 class="serif">Little gifts, lots of love.</h1>
+  <p>Create a tiny website for every sister you want to make smile. Every gift gets its own special link.</p>
+  <button class="primary" id="newGift">＋ Create a new gift</button>
+ </div>
+ <div class="sectionhead"><h2 class="serif">Your creations</h2><span class="pill" id="count">1 GIFT</span></div>
+ <p class="muted">Edit your gifts here. The link you share opens a view-only gift page.</p>
+ <div id="cards"></div>
+</section>
+<section id="editor" class="hidden">
+ <a href="#" class="back" id="back">← Back to my gifts</a>
+ <div class="panel">
+  <span class="tag">GIFT CUSTOMISER</span>
+  <h1 class="serif">Edit this gift</h1>
+  <p class="muted">Make every detail yours. Changes are saved on this device.</p>
+  <label for="sister">Sister's name</label><input id="sister" placeholder="Sister's name">
+  <label for="sender">Your name (brother / sender)</label><input id="sender" placeholder="Your name">
+  <label for="title">Gift title</label><input id="title" placeholder="A little surprise for you">
+  <label for="short">Short message on the first screen</label><textarea id="short"></textarea>
+  <label for="letter">Your personal letter</label><textarea id="letter" style="min-height:220px"></textarea>
+  <label for="theme">Choose a look</label>
+  <select id="theme"><option value="midnight">Midnight love</option><option value="blush">Soft blush</option><option value="lavender">Lavender dream</option></select>
+  <label for="song">Song link (YouTube or direct MP3 URL)</label><input id="song" placeholder="https://youtube.com/...">
+  <p class="hint">YouTube links open in a new tab. Direct MP3 links can be played by the visitor.</p>
+  <div class="actions"><button class="primary" id="save">Save this gift</button><button class="soft" id="previewBtn">Preview</button></div>
+  <hr>
+  <h2 class="serif">Your photo memories 📸</h2>
+  <p class="muted">Add up to 12 photos. Images are resized in your browser before saving.</p>
+  <label for="photoInput">Choose photos</label><input id="photoInput" type="file" accept="image/*" multiple>
+  <div class="photos" id="photoGrid"></div>
+ </div>
+</section>
+<section id="preview" class="hidden">
+ <a href="#" class="back" id="previewBack">← Back to edit</a>
+ <div class="preview">
+  <div class="heart">💗</div><div style="font-size:38px">🌷 💌 🌙</div>
+  <h1 class="serif" id="pTitle"></h1>
+  <h2 class="serif" id="pSister"></h2>
+  <p class="muted" id="pShort"></p>
+  <div class="letter" id="pLetter"></div>
+  <div id="pPhotos" class="photos"></div>
+  <p class="muted" id="pSender"></p>
+  <div id="pSong"></div>
+  <div style="font-size:42px;margin-top:25px">💗</div>
+ </div>
+</section>
+<div class="footer">Made with love · Sister Forever</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const fields=['sister','sender','title','short','letter','theme','song'];
+let gifts=[],current=0,photos=[];
+const starter={sister:'Sonakshi',sender:'Arsh',title:'A little surprise for you',short:"Just a little reminder that I’m so grateful to have you in my corner",letter:"No matter how far life takes us, you will always have a special place in my heart. Thank you for every laugh, every memory, and every little moment. I’m always here for you, no matter what. 💗",theme:'midnight',song:'',photos:[]};
+function load(){try{gifts=JSON.parse(localStorage.getItem('sisterForeverGifts')||'null')||[starter]}catch(e){gifts=[starter]}renderCards()}
+function persist(){localStorage.setItem('sisterForeverGifts',JSON.stringify(gifts))}
+function renderCards(){
+ $('cards').innerHTML='';$('count').textContent=gifts.length+' GIFT'+(gifts.length===1?'':'S');
+ gifts.forEach((g,i)=>{let card=document.createElement('div');card.className='giftcard';card.innerHTML=`<span class="tag">${g.theme==='midnight'?'night THEME':g.theme.toUpperCase()+' THEME'}</span><h3>${escapeHtml(g.sister||'Your sister')}</h3><p>${escapeHtml(g.title||'A little surprise for you')}</p><p>Created just for you</p><div class="actions"><button class="smallbtn" data-edit="${i}">Edit</button><button class="smallbtn" data-preview="${i}">Preview</button><button class="smallbtn" data-copy="${i}">Copy view link</button></div>`;$('cards').appendChild(card)});
+ document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>edit(+b.dataset.edit));
+ document.querySelectorAll('[data-preview]').forEach(b=>b.onclick=()=>showPreview(+b.dataset.preview));
+ document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>copyLink(+b.dataset.copy));
+}
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function show(id){['home','editor','preview'].forEach(x=>$(x).classList.toggle('hidden',x!==id));window.scrollTo(0,0)}
+function edit(i){current=i;let g=gifts[i];fields.forEach(k=>$(k).value=g[k]||'');photos=[...(g.photos||[])];renderPhotos();show('editor')}
+function collect(){let g={};fields.forEach(k=>g[k]=$(k).value);g.photos=photos;return g}
+function save(){gifts[current]=collect();persist();renderCards();alert('Gift saved on this device!')}
+function renderPhotos(){$('photoGrid').innerHTML='';photos.forEach((src,i)=>{let img=document.createElement('img');img.src=src;img.title='Tap to remove';img.onclick=()=>{photos.splice(i,1);renderPhotos()};$('photoGrid').appendChild(img)})}
+async function compress(file){return new Promise(resolve=>{let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let c=document.createElement('canvas'),scale=Math.min(1,1000/Math.max(im.width,im.height));c.width=im.width*scale;c.height=im.height*scale;c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.68))};im.src=r.result};r.readAsDataURL(file)})}
+$('photoInput').addEventListener('change',async e=>{for(const f of [...e.target.files].slice(0,12-photos.length)){photos.push(await compress(f))}renderPhotos();e.target.value=''});
+function showPreview(i){current=i;let g=i===current?collectMaybeSaved():gifts[i];if(i===current&&$('editor').classList.contains('hidden'))g=gifts[i];paintPreview(g);show('preview')}
+function collectMaybeSaved(){return $('editor').classList.contains('hidden')?gifts[current]:collect()}
+function paintPreview(g){$('pTitle').textContent=g.title;$('pSister').textContent='For '+(g.sister||'you')+' 💗';$('pShort').textContent=g.short;$('pLetter').textContent=g.letter;$('pSender').textContent='With love, '+(g.sender||'');$('pPhotos').innerHTML='';(g.photos||[]).forEach(src=>{let im=document.createElement('img');im.src=src;$('pPhotos').appendChild(im)});$('pSong').innerHTML=g.song?`<a href="${escapeHtml(g.song)}" target="_blank" rel="noopener">♪ Open our song</a>`:''}
+function encode(g){return btoa(unescape(encodeURIComponent(JSON.stringify(g))))}
+async function copyLink(i){
+ let g=gifts[i],url=location.href.split('#')[0]+'#gift='+encode(g);
+ try{
+  if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(url);alert('View-only gift link copied! Send this link to your sister.');return;}
+  const box=document.createElement('textarea');box.value=url;box.style.position='fixed';box.style.opacity='0';document.body.appendChild(box);box.select();
+  const ok=document.execCommand('copy');box.remove();
+  if(ok){alert('View-only gift link copied! Send this link to your sister.');}
+  else{prompt('Copy this view-only gift link:',url);}
+ }catch(e){prompt('Copy this view-only gift link:',url);}
+}
+$('newGift').onclick=()=>{gifts.push({...starter,sister:'',sender:'',title:'A little surprise for you',photos:[]});current=gifts.length-1;edit(current)};
+$('back').onclick=e=>{e.preventDefault();save();show('home')};
+$('save').onclick=save;
+$('previewBtn').onclick=()=>{let g=collect();paintPreview(g);show('preview')};
+$('previewBack').onclick=e=>{e.preventDefault();show('editor')};
+function loadShared(){
+ if(location.hash.startsWith('#gift=')){
+  try{
+   let g=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(6)))));
+   paintPreview(g);show('preview');
+   $('previewBack').classList.add('hidden');
+   $('home').classList.add('hidden');
+   $('editor').classList.add('hidden');
+   $('topbar').textContent='♡  A little gift, lots of love';
+   document.querySelector('.footer').textContent='A little surprise made just for you 💗';
+  }catch(e){alert('This gift link is invalid or incomplete.');}
+ }
+}
+load();loadShared();
+</script>
+</body></html>
